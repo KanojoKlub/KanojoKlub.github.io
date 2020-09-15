@@ -116,18 +116,30 @@
       class="bg-image"
     />
     <script>
-      let play = document.querySelector("#play-pause-button");
-      play.onclick = function() {
-        play.classList.toggle("fa-play");
-        play.classList.toggle("fa-pause");
-        let audio = document.querySelector("audio");
-        if (audio.duration > 0 && !audio.paused) {
-          audio.pause();
-        } else {
-          audio.load();
-          audio.play();
-        }
-      };
+          window.addEventListener("load", event => {
+            let play = document.querySelector("#play-pause-button");
+            let audio = document.querySelector("audio");
+            audio.onloadeddata = function() {
+              setPlayState();
+            }
+            play.onclick = function() {
+              if (audio.duration > 0 && !audio.paused) {
+                audio.pause();
+              } else {
+                audio.play();
+              }
+              setPlayState();
+            };
+            function setPlayState() {
+              if (audio.duration > 0 && !audio.paused) {
+                //it's playing
+                play.className = "fa fa-pause";
+              } else {
+                play.className = "fa fa-play";
+              }
+            }
+            console.log("page is fully loaded");
+          });
     </script>
   </body>
   <footer>
