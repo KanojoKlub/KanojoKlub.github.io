@@ -8,6 +8,10 @@
       href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;469&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
     <style>
       body {
         font-family: "Oswald", sans-serif;
@@ -66,11 +70,17 @@
         color: red;
         margin:10px 25px;
       }
+      #play-pause-button {
+        font-size: 25px;
+        cursor: pointer;
+      }
     </style>
   </head>
 
   <body>
     <div class="container">
+      <a id="play-pause-button" class="fa fa-play"></a>
+      <br />
       <div class="tooltip">
         ?
         <span class="tooltiptext">
@@ -88,7 +98,7 @@
           </br></br>
             Kick logic to the curb and do the impossible.
           <br/><br/>
-            <u>Note</u>: if audio is not playing on this website: refresh or close the tab and re-enter the URL.
+            <u>Note</u>: if audio is not automatically playing on this website: click the play button in the top left.
           </p>
 
           </span>
@@ -105,6 +115,20 @@
       alt=""
       class="bg-image"
     />
+    <script>
+      let play = document.querySelector("#play-pause-button");
+      play.onclick = function() {
+        play.classList.toggle("fa-play");
+        play.classList.toggle("fa-pause");
+        let audio = document.querySelector("audio");
+        if (audio.duration > 0 && !audio.paused) {
+          audio.pause();
+        } else {
+          audio.load();
+          audio.play();
+        }
+      };
+    </script>
   </body>
   <footer>
     Website developed by Sean "Igniuss" Lavaerts and Mike "KanojoKlub" Vancolard.
